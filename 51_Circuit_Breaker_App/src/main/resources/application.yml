@@ -1,0 +1,25 @@
+server:
+  port: 8084
+
+
+spring:
+  application:
+    name: 51_Circuit_Breaker_App
+    
+management:
+  endpoints.web.exposure.include: '*'
+  endpoint.health.show-details: always
+  health.circuitbreakers.enabled: true
+
+resilience4j.circuitbreaker:
+  configs:
+    abhirat_TO:
+      registerHealthIndicator: true
+      slidingWindowSize: 10
+      minimumNumberOfCalls: 5
+      permittedNumberOfCallsInHalfOpenState: 3
+      automaticTransitionFromOpenToHalfOpenEnabled: true
+      waitDurationInOpenState: 30s
+      failureRateThreshold: 50
+      eventConsumerBufferSize: 10  
+    
